@@ -5,17 +5,20 @@ import { useAppDispatch, useAppSelector } from '../../../../store/hooks'
 import {
   setContent as setContentRedux,
   setIsOpen as setIsOpenRedux,
-  setType as setTypeRedux
+  setType as setTypeRedux,
 } from '../../../../store/modalSlice'
 import { Card } from '../../../components/Card'
 
 type Props = { id: string }
 
+const Icon = styled.div`
+  font-size: 2rem;
+`
+
 export default function GoalCard(props: Props) {
   const dispatch = useAppDispatch()
 
   const goal = useAppSelector(selectGoalsMap)[props.id]
-
   const onClick = (event: React.MouseEvent) => {
     event.stopPropagation()
     dispatch(setContentRedux(goal))
@@ -29,6 +32,7 @@ export default function GoalCard(props: Props) {
     <Container key={goal.id} onClick={onClick}>
       <TargetAmount>${goal.targetAmount}</TargetAmount>
       <TargetDate>{asLocaleDateString(goal.targetDate)}</TargetDate>
+      <Icon>{goal.icon}</Icon>
     </Container>
   )
 }
